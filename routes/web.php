@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['splade'])->group(function () {
-    Route::get('/', fn () => view('home'))->name('home');
-    Route::get('/docs', fn () => view('docs'))->name('docs');
-
+Route::middleware('splade')->group(function () {
     // Registers routes to support password confirmation in Form and Link components...
     Route::spladePasswordConfirmation();
 
@@ -25,4 +23,20 @@ Route::middleware(['splade'])->group(function () {
 
     // Registers routes to support async File Uploads with Filepond...
     Route::spladeUploads();
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->middleware(['verified'])->name('dashboard');
+
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
+
+    require __DIR__.'/auth.php';
 });
