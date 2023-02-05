@@ -33,12 +33,18 @@ class PostController extends Controller
 
         return view('posts.index', [
             'posts' => SpladeTable::for($posts)
-                ->withGlobalSearch(columns: ['title'])
                 ->column('title', canBeHidden:false, sortable:true)
+                ->withGlobalSearch(columns: ['title'])
                 ->column('slug', sortable:true)
-                ->column('actions')
+                ->column('action')
                 ->selectFilter('category_id', $categories)
                 ->paginate(5),
         ]);
+    }
+
+    public function create()
+    {
+        $categories = Category::pluck('name', 'id')->toArray();
+        return view('posts.create', compact('categories'));
     }
 }

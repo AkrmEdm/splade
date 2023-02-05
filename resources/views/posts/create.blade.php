@@ -14,15 +14,14 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-splade-table :for="$posts">
-                @cell('action', $post)
-                    <Link 
-                        href="{{ route('posts.edit', $post->id) }}" 
-                        class="text-green-600 hover:text-green-400 font-semibold">
-                        {{ __('Edit') }}
-                    </Link>
-                @endcell
-            </x-splade-table>
+            <x-splade-form :action="route('posts.store')" class="max-w-md mx-auto p-4 bg-white rounded-md">
+                <x-splade-select name="category_id" :options="$categories" />
+                <x-splade-input name="title" :label="__('Title')" />
+                <x-splade-textarea name="description" autosize />
+                <x-splade-input name="slug" :label="__('Slug')" />
+             
+                <x-splade-submit class="mt-4"/>
+            </x-splade-form>
         </div>
     </div>
 </x-app-layout>
