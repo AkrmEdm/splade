@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Post;
-use Illuminate\Http\Request;
+use App\Models\Category;
 use Illuminate\Support\Collection;
 use ProtoneMedia\Splade\SpladeTable;
-use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
+use ProtoneMedia\Splade\Facades\Toast;
+use Spatie\QueryBuilder\AllowedFilter;
+use App\Http\Requests\PostStoreRequest;
 
 class PostController extends Controller
 {
@@ -46,5 +47,13 @@ class PostController extends Controller
     {
         $categories = Category::pluck('name', 'id')->toArray();
         return view('posts.create', compact('categories'));
+    }
+
+    public function store(PostStoreRequest $request)
+    {
+        Post::create($request->validated());
+
+        Toast::title('New post added!')->autoDismiss(7);
+        return to_route('posts.index');
     }
 }
