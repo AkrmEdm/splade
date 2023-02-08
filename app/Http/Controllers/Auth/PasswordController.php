@@ -25,7 +25,7 @@ class PasswordController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        Toast::title('Your password was updated successfully!')->autoDismiss(7);
+        Toast::title('Your password was updated successfully!')->autoDismiss(5);
         return back()->with('status', 'password-updated');
     }
 }

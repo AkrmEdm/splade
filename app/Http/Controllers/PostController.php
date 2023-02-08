@@ -53,7 +53,7 @@ class PostController extends Controller
     {
         Post::create($request->validated());
 
-        Toast::title('New post added!')->autoDismiss(7);
+        Toast::title('New post added!')->autoDismiss(5);
         return to_route('posts.index');
     }
     
@@ -67,7 +67,14 @@ class PostController extends Controller
     {
         $post->update($request->validated());
 
-        Toast::title('Post Updated Successfully!')->autoDismiss(7);
+        Toast::title('Post Updated Successfully!')->autoDismiss(5);
         return redirect()->route('posts.index');
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        Toast::title('Post Deleted Successfully!')->autoDismiss(5);
+        return redirect()->back();
     }
 }

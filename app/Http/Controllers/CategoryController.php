@@ -31,7 +31,7 @@ class CategoryController extends Controller
     {
         Category::create($request->validated());
 
-        Toast::title('New category added!')->autoDismiss(7);
+        Toast::title('New category added!')->autoDismiss(5);
         return redirect()->route('categories.index');
     }
 
@@ -44,8 +44,15 @@ class CategoryController extends Controller
     {
         $category->update($request->validated());
 
-        Toast::title('Category Updated Successfully!')->autoDismiss(7);
+        Toast::title('Category Updated Successfully!')->autoDismiss(5);
         return redirect()->route('categories.index');
+    }
+
+    public function destroy(Category $category)
+    {
+        $category->delete();
+        Toast::title('Category Deleted Successfully!')->autoDismiss(5);
+        return redirect()->back();
     }
 
 }

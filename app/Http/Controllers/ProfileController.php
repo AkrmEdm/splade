@@ -35,7 +35,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        Toast::title('Your profile information was updated!')->autoDismiss(7);
+        Toast::title('Your profile information was updated!')->autoDismiss(5);
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 

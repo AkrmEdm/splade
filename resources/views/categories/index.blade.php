@@ -21,6 +21,17 @@
                         class="text-green-600 hover:text-green-400 font-semibold">
                         {{ __('Edit') }}
                     </Link>
+
+                    <Link
+                        confirm="Delete Category"
+                        confirm-text="Are you sure?"
+                        confirm-button="Yes"
+                        cancel-button="Cancel"
+                        href="{{ route('categories.destroy', $category->id) }}"
+                        class="text-red-600 hover:text-red-400 font-semibold"
+                        method="DELETE" preserve-scroll>
+                        Delete
+                    </Link>
                 @endcell
             </x-splade-table>
         </div>
