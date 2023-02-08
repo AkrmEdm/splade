@@ -34,4 +34,18 @@ class CategoryController extends Controller
         Toast::title('New category added!')->autoDismiss(7);
         return redirect()->route('categories.index');
     }
+
+    public function edit(Category $category)
+    {
+        return view('categories.edit', compact('category'));
+    }
+
+    public function update(CategoryStoreRequest $request, Category $category)
+    {
+        $category->update($request->validated());
+
+        Toast::title('Category Updated Successfully!')->autoDismiss(7);
+        return redirect()->route('categories.index');
+    }
+
 }

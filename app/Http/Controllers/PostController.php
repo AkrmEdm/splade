@@ -56,4 +56,18 @@ class PostController extends Controller
         Toast::title('New post added!')->autoDismiss(7);
         return to_route('posts.index');
     }
+    
+    public function edit(Post $post)
+    {
+        $categories = Category::pluck('name', 'id')->toArray();
+        return view('posts.edit', compact('post', 'categories'));
+    }
+
+    public function update(PostStoreRequest $request, Post $post)
+    {
+        $post->update($request->validated());
+
+        Toast::title('Post Updated Successfully!')->autoDismiss(7);
+        return redirect()->route('posts.index');
+    }
 }
